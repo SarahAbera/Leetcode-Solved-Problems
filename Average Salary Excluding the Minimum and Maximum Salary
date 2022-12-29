@@ -1,0 +1,9 @@
+class Solution(object):
+    def average(self, salary):
+        salary = sorted(salary)
+        total = 0
+        num = 0
+        for i in range(1,len(salary)-1):
+            total += salary[i]
+            num += 1
+        return float(total)/num 
