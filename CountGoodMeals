@@ -1,0 +1,16 @@
+class Solution(object):
+    def isAlienSorted(self, words, order):
+        dic = {val:i+1 for i,val in enumerate(order)}
+        for i in range(len(words)-1):
+            word1 = words[i]
+            word2 = words[i+1]
+            length = min(len(word1), len(word2))
+            for j in range(length):
+                if dic[word1[j]] < dic[word2[j]]:
+                    break
+                elif dic[word1[j]] > dic[word2[j]]:
+                    return False
+            else:
+                if len(word1) > len(word2):
+                    return False
+        return True
