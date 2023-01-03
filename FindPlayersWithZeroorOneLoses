@@ -1,0 +1,20 @@
+class Solution(object):
+    def findWinners(self, matches):
+        winner = {matches[i][1]: matches[i][0] for i in range(len(matches))}
+        loser = {}
+        ans = []
+        win = []
+        for i in range(len(matches)):
+            if matches[i][0] not in winner:
+                    win.append(matches[i][0])
+            if matches[i][1] in loser:
+                loser[matches[i][1]] += 1
+            else:
+                loser[matches[i][1]] = 1  
+        ans.append(sorted(set(win)))
+        los = []
+        for key in loser:
+            if loser[key] == 1:
+                los.append(key)
+        ans.append(sorted(los))
+        return ans 
