@@ -1,0 +1,8 @@
+class Solution(object):
+    def convertTemperature(self, celsius):
+        output = []
+        kelvin = (273.15 + celsius) 
+        output.append(kelvin)
+        fahrenheit = (celsius * 1.80 + 32.00)
+        output.append(fahrenheit)
+        return output
