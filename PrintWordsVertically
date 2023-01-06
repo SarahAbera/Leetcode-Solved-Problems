@@ -1,0 +1,16 @@
+class Solution(object):
+    def printVertically(self, s):
+        words = list(s.split())
+        maximum = 0
+        output = []
+        for i in range(len(words)):
+            maximum = max(maximum, len(words[i]))
+        for i in range(maximum):
+            verWord = ""
+            for j in range(len(words)):
+                if len(words[j]) > i:
+                    verWord += words[j][i] 
+                else:
+                    verWord += " "
+            output.append(verWord.rstrip())
+        return output
