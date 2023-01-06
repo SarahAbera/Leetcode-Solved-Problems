@@ -1,0 +1,24 @@
+class Solution(object):
+    def subdomainVisits(self, cpdomains):
+        cpdomain = {}
+        domain = []
+        for domains in cpdomains:
+            sliced = domains.split(" ")
+            domain.append(sliced)
+        for dom in domain:
+            if dom[1] in cpdomain:
+                cpdomain[dom[1]] += int(dom[0])
+            else:
+                cpdomain[dom[1]] = int(dom[0])
+            mainDom = dom[1]
+            for j in range(len(mainDom)):
+                if mainDom[j] == ".":
+                    slicedDom = mainDom[j+1:]
+                    if slicedDom in cpdomain:
+                        cpdomain[slicedDom] += int(dom[0])
+                    else:
+                        cpdomain[slicedDom] = int(dom[0])
+        ans = []
+        for key, val in cpdomain.items():
+            ans.append(str(val) + " " + key)
+        return ans
