@@ -1,0 +1,14 @@
+class Solution(object):
+    def findDiagonalOrder(self, mat):
+        row, col = len(mat), len(mat[0])
+        diagonalMap = defaultdict(list)
+        for r in range(row):
+            for c in range(col):
+                diagonalMap[r+c].append(mat[r][c])
+        diagonalOrder = []
+        for key in diagonalMap:
+            if key % 2 == 0:
+                diagonalOrder.extend(reversed(diagonalMap[key]))
+            else:
+                diagonalOrder.extend(diagonalMap[key])
+        return diagonalOrder
