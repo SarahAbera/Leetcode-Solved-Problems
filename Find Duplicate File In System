@@ -1,0 +1,16 @@
+class Solution(object):
+    def findDuplicate(self, paths):
+        content_path = defaultdict(list)
+        for path in paths:
+            path = path.split()
+            mainpath = path[0]
+            for files in path[1:]:
+                for j in range(len(files)):
+                    if files[j] == "(":
+                        content = files[j+1:len(files)-1]
+                        content_path[content].append(mainpath +"/" + files[:j])
+        output = []                
+        for key in content_path:
+            if len(content_path[key]) > 1:
+                output.append(content_path[key])
+        return output
