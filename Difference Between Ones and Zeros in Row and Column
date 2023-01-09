@@ -1,0 +1,16 @@
+class Solution(object):
+    def onesMinusZeros(self, grid):
+        lenRow = len(grid)
+        lenCol = len(grid[0])
+        onesrow=[0]*lenRow
+        onescol = [0]*lenCol
+        for r in range(lenRow):
+            for c in range(lenCol):
+                if grid[r][c] == 1:
+                    onesrow[r] += 1
+                    onescol[c] += 1
+        output = [[0]*lenCol for _ in range(lenRow)]
+        for r in range(lenRow):
+            for c in range(lenCol):
+                output[r][c] = onesrow[r] + onescol[c] - (lenRow - onesrow[r]) - (lenCol - onescol[c])
+        return output 
