@@ -1,0 +1,9 @@
+class Solution:
+    def arrayChange(self, nums: List[int], operations: List[List[int]]) -> List[int]:
+        replacements = {}
+        for x, y in reversed(operations):
+            replacements[x] = replacements.get(y, y)
+        for i in range(len(nums)):
+            if nums[i] in replacements:
+                nums[i] = replacements[nums[i]]
+        return nums
