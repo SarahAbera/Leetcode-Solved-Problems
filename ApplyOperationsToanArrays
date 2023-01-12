@@ -1,0 +1,17 @@
+class Solution:
+    def applyOperations(self, nums: List[int]) -> List[int]:
+        l = 0
+        r = 1
+        while r < len(nums):
+            if nums[l] == nums[r]:
+                nums[l] *= 2
+                nums[r] = 0
+            l += 1
+            r += 1
+            
+        write = 0
+        for read in range(len(nums)):
+            if nums[read] != 0:
+                nums[read],nums[write] = nums[write], nums[read]
+                write += 1
+        return nums
