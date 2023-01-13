@@ -1,0 +1,23 @@
+class Solution:
+    def commonChars(self, words: List[str]) -> List[str]:
+        prev = [0]*26
+        offset = ord("a")
+        for char in words[0]:
+            i = ord(char) - offset
+            prev[i] += 1
+        
+        for word in words[1:]:
+            current = [0]*26
+            for char in word:
+                i = ord(char) - offset
+                current[i] += 1
+            for i in range(26):
+                prev[i] = min(prev[i],current[i])
+        
+        output = []
+        for i in range(26):
+            if prev[i] > 0:
+                char = chr(offset + i)
+                for j in range(prev[i]):
+                    output.append(char)
+        return output
