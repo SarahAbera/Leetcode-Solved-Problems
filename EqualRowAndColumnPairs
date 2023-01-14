@@ -1,0 +1,14 @@
+class Solution:
+    def equalPairs(self, grid: List[List[int]]) -> int:
+        row = defaultdict(int)
+        for rowElement in grid:
+            row[str(rowElement)] += 1
+
+        equalpairs = 0
+        for col in range(len(grid[0])):
+            colElement = []
+            for r in range(len(grid)):
+                colElement.append(grid[r][col])
+            if str(colElement) in row:
+                equalpairs += row[str(colElement)]
+        return equalpairs
