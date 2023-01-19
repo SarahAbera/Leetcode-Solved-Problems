@@ -1,0 +1,13 @@
+class Solution:
+    def largestLocal(self, grid: List[List[int]]) -> List[List[int]]:
+        res = []
+        for row in range(len(grid)-2):
+            max_row = []
+            for col in range(len(grid[0])-2):
+                maxval = 0
+                for i in range(row, row+3):
+                    for j in range(col,col+3):
+                        maxval = max(maxval,grid[i][j])
+                max_row.append(maxval)
+            res.append(max_row)
+        return res
