@@ -1,0 +1,11 @@
+class Solution:
+    def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:
+        diagonal_matrix = defaultdict(set)
+        for r in range (len(matrix)):
+            for c in range(len(matrix[0])):
+                diagonal_matrix[r-c].add(matrix[r][c])
+
+        for key in diagonal_matrix:
+            if len(diagonal_matrix[key]) != 1:
+                return False
+        return True
