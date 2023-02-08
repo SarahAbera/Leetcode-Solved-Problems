@@ -1,0 +1,9 @@
+class Solution:
+    def maximumValue(self, strs: List[str]) -> int:
+        maxx = 0
+        for val in strs:
+            if val.isdigit():
+                maxx = max(maxx,int(val))
+            else:
+                maxx = max(maxx, len(val))
+        return maxx
