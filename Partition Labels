@@ -1,0 +1,21 @@
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        end = s.rindex(s[0])
+        lt = 0
+        output = []
+        for r in range(len(s)):
+            if end == len(s) - 1:
+                output.append(end - lt + 1)
+                break
+            if r > end:
+                output.append(end - lt + 1)
+                end = s.rindex(s[r])
+                lt = r
+                if end == len(s) - 1:
+                    output.append(end - lt + 1)
+                    break
+                continue
+            else:    
+                end = max(end,s.rindex(s[r]))
+
+        return output
