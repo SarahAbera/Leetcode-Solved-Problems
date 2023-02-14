@@ -9,3 +9,12 @@ class Solution(object):
 
             lis.append(count)
         return lis
+# 2nd solution
+class Solution:
+  def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
+    sn = list(sorted(nums))
+    d = dict()
+    for i,n in enumerate(sn):
+        if d.get(n,None) is None:
+            d[n] = i
+    return [d[n] for n in nums]
