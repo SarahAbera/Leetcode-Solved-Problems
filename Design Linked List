@@ -1,0 +1,64 @@
+class Node:
+    def __init__(self,val,next = None):
+        self.val = val
+        self.next = next
+
+class MyLinkedList:
+
+    def __init__(self):
+        self.head = Node(0)        
+
+    def get(self, index: int) -> int:
+        curr = self.head.next
+        while curr:
+            if index == 0:
+                return curr.val
+            index -= 1
+            curr = curr.next
+        return -1
+
+    def addAtHead(self, val: int) -> None:
+        new = Node(val)
+        dummy = self.head
+        old = dummy.next
+        new.next = old
+        dummy.next = new
+
+    def addAtTail(self, val: int) -> None:
+        new = Node(val)
+        curr = self.head
+        while curr.next:
+            curr = curr.next
+        curr.next = new
+
+    def addAtIndex(self, index: int, val: int) -> None:
+        new = Node(val)
+        curr = self.head
+        while curr:
+            if index == 0:
+                temp = curr.next
+                curr.next = new
+                new.next = temp
+                return
+            index -= 1
+            curr = curr.next
+
+    def deleteAtIndex(self, index: int) -> None:
+        curr = self.head
+        while curr and curr.next:
+            if index == 0:
+                new = curr.next.next
+                curr.next = new
+                return
+            index -= 1
+            curr = curr.next
+        
+
+
+# Your MyLinkedList object will be instantiated and called as such:
+# obj = MyLinkedList()
+# param_1 = obj.get(index)
+# obj.addAtHead(val)
+# obj.addAtTail(val)
+# obj.addAtIndex(index,val)
+# obj.deleteAtIndex(index)
