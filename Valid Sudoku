@@ -1,0 +1,60 @@
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool: 
+        #Box check
+        for row in range(0,9,3):
+            for col in range(0,9,3):
+                box = defaultdict(int)
+                for i in range(row,row+3):
+                    for j in range(col,col+3):
+                        element = board[i][j]
+                        if element.isdigit():
+                            box[element] += 1
+                for key,val in box.items():
+                    if val > 1:
+                        return False
+
+        #Row check
+        for row in range(0,9):
+            row_dict = defaultdict(int)
+            for col in range(0,9):
+                element = board[row][col]
+                if element.isdigit():
+                    row_dict[element] += 1
+            for key,val in row_dict.items():
+                if val > 1 :
+                    return False
+        #Column check
+        for col in range(0,9):
+            col_dict = defaultdict(int)
+            for row in range(0,9):
+                element = board[row][col]
+                if element.isdigit():
+                    col_dict[element] += 1
+            for key,val in col_dict.items():
+                if val > 1:
+                    return False
+        
+        return True
+
+    
+
+#Another approach
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool: 
+        row = [set() for _ in range(9)]
+        col = [set() for _ in range(9)]
+        box = [[set() for _ in range(3)] for _ in range(3)]
+
+        for i in range(9):
+            for j in range(9):
+                element = board[i][j]
+
+                if element == ".":
+                    continue
+                else:
+                    if element in row[i] or element in col[j] or element in box[i//3][j//3]:
+                        return False
+                row[i].add(element)
+                col[j].add(element)
+                box[i//3][j//3].add(element)
+        return True
