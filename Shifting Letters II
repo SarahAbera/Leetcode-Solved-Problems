@@ -1,0 +1,19 @@
+class Solution:
+    def shiftingLetters(self, s: str, shifts: List[List[int]]) -> str:
+        shift = [0]*len(s)
+        for start,end,direction in shifts:
+            if direction == 0:
+                shift[start] += -1
+                if end < len(s)-1:
+                    shift[end+1] += 1
+            else:
+                shift[start] += 1
+                if end < len(s)-1:
+                    shift[end+1] += -1
+            # print(shift)
+        for i in range(1,len(shift)):
+            shift[i] = shift[i-1] + shift[i]
+        string = list(s)
+        for j in range(len(s)):
+            string[j] = chr((ord(s[j]) - 97 + shift[j]) % 26 + 97)
+        return "".join(string)
