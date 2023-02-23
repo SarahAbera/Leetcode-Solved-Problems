@@ -1,0 +1,18 @@
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        dict_p = Counter(p)
+        dict_window = Counter(s[:len(p)])
+        k = len(p)
+        left = 0
+        output = []
+        for r in range(k,len(s)):
+            if dict_window == dict_p:
+                output.append(left)
+            dict_window[s[r]] += 1
+            dict_window[s[left]] -= 1
+            if dict_window[s[left]] == 0:
+                del dict_window[s[left]]
+            left += 1
+        if dict_window == dict_p:
+            output.append(left)
+        return output
