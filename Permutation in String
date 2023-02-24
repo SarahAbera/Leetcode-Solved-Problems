@@ -1,0 +1,16 @@
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        size = len(s1)
+        s1_dict = Counter(s1)
+        s2_dict = defaultdict(int)
+        left = 0
+        for i in range(len(s2)):
+            s2_dict[s2[i]] += 1
+            if i - left + 1 > size:
+                s2_dict[s2[left]] -= 1
+                left += 1
+            if s2_dict[s2[left-1]] == 0:
+                del s2_dict[s2[left-1]]
+            if s2_dict == s1_dict:
+                return True
+        return False
