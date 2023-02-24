@@ -1,0 +1,14 @@
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        prefix = [0]
+        for i in range(len(nums)):
+            prefix.append(prefix[i] + nums[i])
+
+        count = 0
+        dict = defaultdict(int)
+        for num in prefix:
+            if num - k in dict:
+                count += dict[num - k]
+            dict[num] += 1
+        
+        return count
