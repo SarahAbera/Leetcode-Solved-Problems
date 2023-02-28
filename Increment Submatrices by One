@@ -1,0 +1,22 @@
+class Solution:
+    def rangeAddQueries(self, n: int, queries: List[List[int]]) -> List[List[int]]:
+        matrix = [[0]*n for _ in range(n)]
+        for row1,col1,row2,col2 in queries:
+            matrix[row1][col1] += 1
+            if row2 != n-1:
+                matrix[row2+1][col1] -= 1
+            if col2 != n-1:
+                matrix[row1][col2+1] -= 1
+            if col2 != n-1 and row2 != n-1:
+                matrix[row2+1][col2+1] += 1
+                
+        for row in range(n):
+            for col in range(n):
+                if row == 0:
+                    if col > 0:
+                        matrix[row][col] = matrix[row][col-1] + matrix[row][col]
+                elif col == 0:
+                    matrix[row][col] = matrix[row-1][col] + matrix[row][col]
+                else:
+                    matrix[row][col] = matrix[row-1][col] + matrix[row][col-1] - matrix[row-1][col-1] + matrix[row][col] 
+        return matrix
