@@ -1,0 +1,22 @@
+class Solution:
+    def removeStars(self, s: str) -> str:
+        s = list(s)
+        stars = []
+        output = []
+
+        while s:
+            x = s.pop()
+            if x == "*":
+                stars.append(x)
+            elif stars:
+                stars.pop()
+            else:
+                output.append(x)
+
+        if not output:
+            return "".join(output)
+        else:
+            ordered = []
+            while output:
+                ordered.append(output.pop())
+            return "".join(ordered)
