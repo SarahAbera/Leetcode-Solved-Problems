@@ -1,0 +1,15 @@
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+        self.rowIndex = rowIndex
+        return self.helper(self.rowIndex,[1])
+
+    def helper(self, rowIndex, new_array):
+        if rowIndex == 0:
+            return new_array
+    
+        row_array = [1]
+        for i in range(1,len(new_array)):
+            row_array.append(new_array[i] + new_array[i-1])
+        row_array.append(1)
+
+        return self.helper(rowIndex-1,row_array)
