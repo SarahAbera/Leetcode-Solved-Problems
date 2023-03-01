@@ -1,0 +1,18 @@
+class Solution(object):
+    def carPooling(self, trips, capacity):
+        lst=[]
+        for i in range(len(trips)):
+            lst.append([trips[i][1],1,trips[i][0]])
+            lst.append([trips[i][2],0,trips[i][0]])
+        current =0
+        lst=sorted(lst)
+        for i in range(len(lst)):
+            if lst[i][1]==1:
+                current +=lst[i][2]
+            else:
+                if lst[i][1]==0:
+                    current -=lst[i][2]
+            if current > capacity:
+                return False
+        
+        return True
