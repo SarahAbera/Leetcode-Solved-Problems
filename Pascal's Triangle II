@@ -1,3 +1,4 @@
+###RECURSIVE APPROACH
 class Solution:
     def getRow(self, rowIndex: int) -> List[int]:
         self.rowIndex = rowIndex
@@ -13,3 +14,16 @@ class Solution:
         row_array.append(1)
 
         return self.helper(rowIndex-1,row_array)
+
+#### ITERATIVE APPROACH
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+        if rowIndex == 0:
+            return [1]
+        indexed_array = [1,1]
+        for i in range(2,rowIndex+1):
+            new = [1]*(i+1)
+            for j in range(len(indexed_array)-1):
+                new[j+1] = indexed_array[j] + indexed_array[j+1]
+            indexed_array = new
+        return indexed_array
