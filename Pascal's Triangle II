@@ -27,3 +27,14 @@ class Solution:
                 new[j+1] = indexed_array[j] + indexed_array[j+1]
             indexed_array = new
         return indexed_array
+##########################################################
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+        if rowIndex == 0:
+            return [1]
+        result = [1]
+        arr = self.getRow(rowIndex-1)
+        for i in range(len(arr)-1):
+            result.append(arr[i] + arr[i+1])
+        result.append(1)
+        return result
