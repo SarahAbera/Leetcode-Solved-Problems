@@ -1,0 +1,17 @@
+class Solution:
+    def timeRequiredToBuy(self, tickets: List[int], k: int) -> int:
+        time = 0
+        ticket = []
+        for ind,val in enumerate(tickets):
+            ticket.append([val,ind])
+        q = deque(ticket)
+        
+        while q:
+            temp = q.popleft()
+            temp[0] -= 1
+            time += 1
+            if temp[0] == 0:
+                if temp[1] == k:
+                    return time
+            else:
+                q.append(temp)
