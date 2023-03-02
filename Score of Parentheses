@@ -17,3 +17,22 @@ class Solution:
                 else:
                     count += cur
         return count
+
+###########################################
+class Solution:
+    def scoreOfParentheses(self, s: str) -> int:
+        stack = []
+        for char in s:
+            if char == "(":  
+                stack.append(char)
+            else:
+                if stack[-1] == "(":
+                    stack.pop()
+                    stack.append(1)
+                else:
+                    cur = 0
+                    while stack and str(stack[-1]).isdigit():
+                        cur += stack.pop()
+                    stack.pop()
+                    stack.append(2 * cur)
+        return sum(stack)
