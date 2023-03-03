@@ -1,0 +1,25 @@
+class Solution:
+    def shipWithinDays(self, weights: List[int], days: int) -> int:
+        def count(capacity):
+            count = 0
+            sum = 0
+            for weight in weights:
+                sum += weight
+                if sum == capacity:
+                    count += 1
+                    sum = 0
+                elif sum > capacity:
+                    count += 1
+                    sum = weight
+            return count + 1 if sum > 0 else count
+
+        left = max(weights) - 1
+        right = sum(weights) + 1
+        while right > left + 1:
+            mid = left + (right-left)//2
+            print(count(mid))
+            if count(mid) <= days:
+                right = mid
+            else:
+                left = mid
+        return right
