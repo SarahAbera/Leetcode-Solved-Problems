@@ -1,0 +1,42 @@
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        def hoursTaken(capacity):
+            result = 0
+            for num in piles:
+                result += ceil(num/capacity)
+            return result 
+        
+        right = max(piles)
+        left = 1
+        ans = -1
+        while left <= right:
+            mid = left + (right - left)//2
+
+# checks if the time taken to finish the piles with this capacity < h:
+            if hoursTaken(mid) <= h:
+                ans = mid
+                right = mid - 1
+            else:
+                left = mid + 1
+        return ans
+        
+###############################################################
+
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        def hoursTaken(capacity):
+            result = 0
+            for num in piles:
+                result += ceil(num/capacity)
+            return result 
+        
+        right = max(piles)
+        left = 0
+        while left + 1 < right:
+            mid = left + (right - left)//2
+
+            if hoursTaken(mid) <= h :
+                right = mid
+            else:
+                left = mid
+        return right
