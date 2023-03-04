@@ -1,0 +1,25 @@
+class Solution:
+    def removeDuplicateLetters(self, s: str) -> str:
+        occ = Counter(s)
+        stack = []
+
+        for char in s:
+            if char not in stack:
+                if not stack:
+                    stack.append(char)
+                else:
+                    if ord(char) > ord(stack[-1]):
+                        stack.append(char)
+                    else:
+                        while stack and ord(char) < ord(stack[-1]):
+                            if occ[stack[-1]] > 1:
+                                occ[stack[-1]] -= 1
+                                if occ[stack[-1]] == 0:
+                                    del occ[stack[-1]]
+                                stack.pop()
+                            else:
+                                break
+                        stack.append(char)
+            else:
+                occ[char] -= 1     
+        return "".join(stack)
