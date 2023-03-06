@@ -1,0 +1,20 @@
+class Solution:
+    def peakIndexInMountainArray(self, arr: List[int]) -> int:
+
+        def check(mid):
+            if arr[mid + 1] < arr[mid]:
+                return True
+            return False
+
+        left = -1
+        right = len(arr)
+
+        while right > left + 1:
+            mid = left + (right-left)//2
+
+            if check(mid) == True:
+                right = mid
+            else:
+                left = mid
+        
+        return right
