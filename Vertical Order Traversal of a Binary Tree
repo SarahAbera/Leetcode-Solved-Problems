@@ -1,0 +1,24 @@
+class Solution:
+    def verticalTraversal(self, root: Optional[TreeNode]) -> List[List[int]]:
+        container = defaultdict(list)
+        def vertical(root,row,col,container):
+            if not root:
+                return         
+            vertical(root.left,row+1,col-1,container)
+            container[col].append((row,root.val))
+            vertical(root.right,row+1,col+1,container)
+
+        vertical(root,0,0,container)
+        container = dict(sorted(container.items()))
+
+        for key in container:
+            container[key].sort()
+
+        traversed = []    
+        for key in container:
+            temp = []
+            for val in container[key]:
+                left , right = val
+                temp.append(right)
+            traversed.append(temp)      
+        return traversed
