@@ -1,0 +1,19 @@
+class Solution:
+    def gridGame(self, grid: List[List[int]]) -> int:
+        
+        suffix = [ele for ele in grid[0]]
+        suffixSum = 0
+        for i in range(len(suffix)-1,-1,-1):
+            suffix[i] = suffixSum
+            suffixSum += grid[0][i]
+            
+        prefix = [ele for ele in grid[1]]
+        prefixSum = 0
+        for i in range(len(prefix)):
+            prefix[i] = prefixSum
+            prefixSum += grid[1][i] 
+        lowest = float("inf")
+        for i in range(len(prefix)):
+            lowest = min(lowest, max(prefix[i], suffix[i]))
+            
+        return lowest
