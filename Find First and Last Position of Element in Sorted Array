@@ -1,0 +1,31 @@
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+
+        if not(nums):
+            return [-1,-1]
+        
+        position = []
+        # finding the initial index
+        left = -1
+        right = len(nums) - 1
+        while right > left + 1:
+            mid = (left + right)//2
+            if nums[mid] < target:
+                left = mid
+            else:
+                right = mid
+        if nums[right] == target: position.append(right)
+        else: position.append(-1)
+
+        # finding the last index
+        left = -1
+        right = len(nums)
+        while right > left + 1:
+            mid = (left + right)// 2
+            if nums[mid] <= target:
+                left = mid
+            else:
+                right = mid
+        if nums[left] == target: position.append(left)
+        else: position.append(-1)
+        return position
