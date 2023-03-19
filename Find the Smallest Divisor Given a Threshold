@@ -1,0 +1,23 @@
+class Solution:
+    def smallestDivisor(self, nums: List[int], threshold: int) -> int:
+        # the divisor is in the range of 1 to max(nums)
+        def divisor(mid):
+            totalSum = 0
+            for num in nums:
+                totalSum += ceil(num/mid)
+            if totalSum <= threshold:
+                return True
+            return False
+
+        left = 0
+        right = max(nums) + 1
+
+        while left + 1 < right:
+            mid = left + (right-left)//2
+        
+            if not(divisor(mid)):
+                left = mid
+            else:
+                right = mid
+            
+        return right
