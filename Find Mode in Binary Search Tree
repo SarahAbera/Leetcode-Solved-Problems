@@ -1,0 +1,23 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def findMode(self, root: Optional[TreeNode]) -> List[int]:
+        frequency = defaultdict(int)
+        def inorder(root,frequency):
+            if not root:
+                return None
+            inorder(root.left, frequency)
+            frequency[root.val] += 1
+            inorder(root.right, frequency)
+        inorder(root,frequency)
+
+        sorted_freq = sorted(frequency.items(),key=lambda x:x[1])
+        ans = []
+        for tup in sorted_freq:
+            if tup[1] == sorted_freq[-1][1]:
+                ans.append(tup[0])
+        return ans
