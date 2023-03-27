@@ -1,0 +1,18 @@
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        _min = min(nums)
+        _max = max(nums)
+
+        counts = [0] * ((_max - _min)+1)
+        for num in nums:
+            position = num - _min
+            counts[position] += 1
+        
+        j = 0
+        for i in range(len(counts)):
+            while counts[i] > 0:
+                nums[j] = _min + i
+                j += 1
+                counts[i] -= 1
+        return nums[len(nums) - k]
+                
