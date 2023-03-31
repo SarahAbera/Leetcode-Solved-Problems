@@ -1,0 +1,47 @@
+class Solution:
+    def countSmaller(self, nums: List[int]) -> List[int]:
+        
+        output = [0] * len(nums)
+        def mergeSort(left,right):
+            i, j, a = 0, 0, 0
+            arr = []
+            # print("left",left, "right", right)
+            while i < len(left) and j < len(right):
+                if left[i][0] < right[j][0]:
+                    output[left[i][1]] += j
+                    arr.append(left[i])
+                    i += 1
+
+                elif left[i][0] > right[j][0]:
+                    arr.append(right[j])
+                    j += 1
+                else:
+                    arr.append(left[i])
+                    output[left[i][1]] += j
+                    i += 1
+
+            arr.extend(right[j:])
+            while i < len(left):
+                output[left[i][1]] += j
+                arr.append(left[i])
+                i += 1
+            # print("merged",arr, output)
+            
+            return arr
+        def merge(arr):
+            if len(arr) == 1:
+                return arr
+            
+            left = 0
+            right = len(arr) - 1
+            mid = (left + right) // 2
+            leftArr = merge(arr[ : mid + 1])
+            rightArr = merge(arr[mid + 1 : ])
+            
+            return mergeSort(leftArr,rightArr)
+
+        arr = []
+        for i,j in enumerate(nums):
+            arr.append((j,i))
+        merge(arr)
+        return output
