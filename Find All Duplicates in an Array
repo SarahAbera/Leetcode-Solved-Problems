@@ -6,3 +6,23 @@ class Solution:
             if val == 2:
                 ans.append(key)
         return ans
+
+##################################################################################
+
+class Solution:
+    def findDuplicates(self, nums: List[int]) -> List[int]:
+        
+        for i in range(len(nums)):
+            cur_val = nums[i]
+            while cur_val != i + 1:
+                if cur_val == nums[cur_val - 1]:
+                    break
+                nums[cur_val - 1], nums[i] = nums[i], nums[cur_val - 1]
+                cur_val = nums[i]
+
+        duplicates = []
+        for i in range(len(nums)):
+            if nums[i] != i + 1:
+                duplicates.append(nums[i])
+
+        return duplicates
