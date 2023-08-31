@@ -1,46 +1,36 @@
-class Solution(object):
-    def updateBoard(self, board, click):
-        """
-        :type board: List[List[str]]
-        :type click: List[int]
-        :rtype: List[List[str]]
-        """
-        if not board:
-            return []
-
-        m, n = len(board), len(board[0])
-        i, j = click[0], click[1]
-
-        # If a mine ('M') is revealed, then the game is over - change it to 'X'.
-        if board[i][j] == 'M':
-            board[i][j] = 'X'
+class Solution:
+    def updateBoard(self, board: List[List[str]], click: List[int]) -> List[List[str]]:
+        if board[click[0]][click[1]] == "M":
+            board[click[0]][click[1]] = "X"
             return board
 
-        # run dfs to reveal the board
-        self.dfs(board, i, j)
+        directions = [(1,0),(0,1),(-1,0),(0,-1),(-1,1),(-1,-1),(1,-1),(1,1)]
+        
+        inbound = lambda r,c : 0 <= r < len(board) and 0 <= c < len(board[0])
+        visited = set()
+        def dfs(row,col):
+            if board[row][col] != "E":
+                return
+            
+            count = 0
+            for dx,dy in directions:
+                newr , newc = dx + row , dy + col
+                if inbound(newr,newc):
+                    if board[newr][newc] == "M":
+                        count += 1
+
+            if count > 0:
+                board[row][col] = str(count)
+                return
+            board[row][col] = "B"
+
+            for dx,dy in directions:
+                newr , newc = dx + row , dy + col
+                if inbound(newr,newc):
+                    dfs(newr,newc)
+
+        dfs(click[0],click[1])
         return board
+            
 
-    def dfs(self, board, i, j):
-        if board[i][j] != 'E':
-            return
-
-        m, n = len(board), len(board[0])       
-        directions = [(-1,-1), (0,-1), (1,-1), (1,0), (1,1), (0,1), (-1,1), (-1,0)]
-
-        mine_count = 0
-
-        for d in directions:
-            ni, nj = i + d[0], j + d[1]
-            if 0 <= ni < m and 0 <= nj < n and board[ni][nj] == 'M':        
-                mine_count += 1
-
-        if mine_count == 0:
-            board[i][j] = 'B'
-        else:
-            board[i][j] = str(mine_count)
-            return
-
-        for d in directions:
-            ni, nj = i + d[0], j + d[1]
-            if 0 <= ni < m and 0 <= nj < n:
-                self.dfs(board, ni, nj)
+        
