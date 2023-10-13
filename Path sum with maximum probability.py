@@ -13,8 +13,7 @@ class Solution:
             prob,node = heappop(queue)
             if node == end_node:
                 max_probability = max(-prob,max_probability)
-            else:
-                visited.add(node)
+            visited.add(node)
 
             for nxt,curProb in adjList[node]:
                 if nxt not in visited:
